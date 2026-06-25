@@ -11,7 +11,7 @@ export async function POST(req: Request) {
     await resend.emails.send({
       from: "Williams Builders <quotes@williamsbuilders.ca>",
       to: "matt@williamsbuilders.ca",
-      reply_to: email || undefined,
+      replyTo: email || undefined,
       subject: `New Quote Request - ${name}`,
       html: `
         <h2>New Quote Request</h2>
