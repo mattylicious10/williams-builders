@@ -19,7 +19,9 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md" : "bg-transparent"
+        scrolled
+          ? "md:bg-white md:shadow-md bg-transparent"
+          : "bg-transparent"
       }`}
     >
       <nav className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
@@ -28,6 +30,13 @@ export default function Navbar() {
         <a
           href="#top"
           onClick={() => setOpen(false)}
+          className={`transition-all duration-300
+            md:opacity-100 md:scale-100 md:pointer-events-auto
+            ${
+              scrolled
+                ? "opacity-0 scale-75 pointer-events-none"
+                : "opacity-100 scale-100"
+            }`}
         >
           <Image
             src="/logo-f8f5ee.png"
@@ -56,7 +65,11 @@ export default function Navbar() {
         <div className="md:hidden">
           <button
             onClick={() => setOpen(!open)}
-            className="text-2xl"
+            className={`text-2xl transition-all duration-300 rounded-lg p-2 ${
+              scrolled
+                ? "bg-white shadow-md"
+                : "bg-transparent"
+            }`}
           >
             ☰
           </button>
