@@ -24,6 +24,10 @@ const whiteshellGallery = [
 
 const garageGallery = [
   {
+    src: "/projects/winnipeg-garage/winnipeg-garage-overhead-door-tyvek.webp",
+    alt: "Winnipeg detached garage with overhead door installed and Tyvek house wrap on the exterior walls",
+  },
+  {
     src: "/projects/winnipeg-garage/winnipeg-garage-front.webp",
     alt: "Detached garage under construction in Winnipeg with wall and roof sheathing completed",
   },
@@ -49,24 +53,62 @@ const garageGallery = [
   },
 ];
 
+type GalleryName = "whiteshell" | "garage";
+
+type ActiveGallery = {
+  name: GalleryName;
+  index: number;
+} | null;
+
+const galleries = {
+  whiteshell: {
+    images: whiteshellGallery,
+    label: "Whiteshell exterior siding photo gallery",
+  },
+  garage: {
+    images: garageGallery,
+    label: "Winnipeg detached garage photo gallery",
+  },
+} as const;
+
 export default function FeaturedProjects() {
-  const [activeGarageImage, setActiveGarageImage] = useState<number | null>(null);
+  const [activeGallery, setActiveGallery] = useState<ActiveGallery>(null);
+
+  const openGallery = (name: GalleryName, index: number) => {
+    setActiveGallery({ name, index });
+  };
 
   useEffect(() => {
-    if (activeGarageImage === null) return;
+    if (activeGallery === null) return;
+
+    const activeImages = galleries[activeGallery.name].images;
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setActiveGarageImage(null);
+      if (event.key === "Escape") {
+        setActiveGallery(null);
+      }
+
       if (event.key === "ArrowRight") {
-        setActiveGarageImage((current) =>
-          current === null ? 0 : (current + 1) % garageGallery.length,
+        setActiveGallery((current) =>
+          current === null
+            ? null
+            : {
+                ...current,
+                index: (current.index + 1) % activeImages.length,
+              },
         );
       }
+
       if (event.key === "ArrowLeft") {
-        setActiveGarageImage((current) =>
+        setActiveGallery((current) =>
           current === null
-            ? 0
-            : (current - 1 + garageGallery.length) % garageGallery.length,
+            ? null
+            : {
+                ...current,
+                index:
+                  (current.index - 1 + activeImages.length) %
+                  activeImages.length,
+              },
         );
       }
     };
@@ -78,7 +120,11 @@ export default function FeaturedProjects() {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [activeGarageImage]);
+  }, [activeGallery]);
+
+  const activeGalleryData = activeGallery
+    ? galleries[activeGallery.name]
+    : null;
 
   return (
     <section id="projects" className="bg-[#F8F5EE] px-6 py-24">
@@ -89,7 +135,12 @@ export default function FeaturedProjects() {
 
         <article className="overflow-hidden rounded-2xl bg-white shadow-sm">
           <div className="bg-[#F8F5EE]">
-            <div className="relative aspect-[4/3] overflow-hidden bg-gray-200 md:aspect-[16/8]">
+            <button
+              type="button"
+              onClick={() => openGallery("whiteshell", 0)}
+              className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-200 text-left md:aspect-[16/8]"
+              aria-label="Open Whiteshell exterior siding photo gallery"
+            >
               <Image
                 src={whiteshellGallery[0].src}
                 alt={whiteshellGallery[0].alt}
@@ -98,22 +149,25 @@ export default function FeaturedProjects() {
                 sizes="(max-width: 768px) 100vw, 1280px"
                 priority
               />
-            </div>
+            </button>
 
             <div className="mt-1 grid gap-1 sm:grid-cols-3">
-              {whiteshellGallery.slice(1).map((image) => (
-                <div
+              {whiteshellGallery.slice(1).map((image, index) => (
+                <button
+                  type="button"
                   key={image.src}
-                  className="relative aspect-[4/3] overflow-hidden bg-gray-200"
+                  onClick={() => openGallery("whiteshell", index + 1)}
+                  className="group relative aspect-[4/3] overflow-hidden bg-gray-200 text-left"
+                  aria-label={`Open Whiteshell siding gallery photo ${index + 2}`}
                 >
                   <Image
                     src={image.src}
                     alt={image.alt}
                     fill
-                    className="object-cover transition-transform duration-500 hover:scale-[1.02]"
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                     sizes="(max-width: 640px) 100vw, 33vw"
                   />
-                </div>
+                </button>
               ))}
             </div>
           </div>
@@ -137,7 +191,7 @@ export default function FeaturedProjects() {
           <div className="bg-[#F8F5EE]">
             <button
               type="button"
-              onClick={() => setActiveGarageImage(0)}
+              onClick={() => openGallery("garage", 0)}
               className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-200 text-left md:aspect-[16/8]"
               aria-label="Open Winnipeg detached garage photo gallery"
             >
@@ -155,7 +209,7 @@ export default function FeaturedProjects() {
                 <button
                   type="button"
                   key={image.src}
-                  onClick={() => setActiveGarageImage(index + 1)}
+                  onClick={() => openGallery("garage", index + 1)}
                   className="group relative aspect-[4/3] overflow-hidden bg-gray-200 text-left"
                   aria-label={`Open garage gallery photo ${index + 2}`}
                 >
@@ -169,7 +223,7 @@ export default function FeaturedProjects() {
                   {index === 2 && (
                     <span className="absolute inset-0 flex items-end justify-end bg-black/20 p-4 transition-colors group-hover:bg-black/30">
                       <span className="rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-[#1D3A22] shadow-sm">
-                        View all 6 photos
+                        View all {garageGallery.length} photos
                       </span>
                     </span>
                   )}
@@ -201,17 +255,17 @@ export default function FeaturedProjects() {
         </div>
       </div>
 
-      {activeGarageImage !== null && (
+      {activeGallery !== null && activeGalleryData !== null && (
         <div
           className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 p-4 md:p-8"
           role="dialog"
           aria-modal="true"
-          aria-label="Winnipeg detached garage photo gallery"
-          onClick={() => setActiveGarageImage(null)}
+          aria-label={activeGalleryData.label}
+          onClick={() => setActiveGallery(null)}
         >
           <button
             type="button"
-            onClick={() => setActiveGarageImage(null)}
+            onClick={() => setActiveGallery(null)}
             className="absolute right-4 top-4 z-10 rounded-full bg-white/10 px-4 py-2 text-2xl text-white backdrop-blur transition hover:bg-white/20 md:right-8 md:top-8"
             aria-label="Close gallery"
           >
@@ -222,9 +276,15 @@ export default function FeaturedProjects() {
             type="button"
             onClick={(event) => {
               event.stopPropagation();
-              setActiveGarageImage(
-                (activeGarageImage - 1 + garageGallery.length) %
-                  garageGallery.length,
+              setActiveGallery((current) =>
+                current === null
+                  ? null
+                  : {
+                      ...current,
+                      index:
+                        (current.index - 1 + activeGalleryData.images.length) %
+                        activeGalleryData.images.length,
+                    },
               );
             }}
             className="absolute left-3 z-10 rounded-full bg-white/10 px-4 py-3 text-3xl text-white backdrop-blur transition hover:bg-white/20 md:left-8"
@@ -238,15 +298,15 @@ export default function FeaturedProjects() {
             onClick={(event) => event.stopPropagation()}
           >
             <Image
-              src={garageGallery[activeGarageImage].src}
-              alt={garageGallery[activeGarageImage].alt}
+              src={activeGalleryData.images[activeGallery.index].src}
+              alt={activeGalleryData.images[activeGallery.index].alt}
               fill
               className="object-contain"
               sizes="100vw"
               priority
             />
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-sm text-white">
-              {activeGarageImage + 1} / {garageGallery.length}
+              {activeGallery.index + 1} / {activeGalleryData.images.length}
             </div>
           </div>
 
@@ -254,8 +314,13 @@ export default function FeaturedProjects() {
             type="button"
             onClick={(event) => {
               event.stopPropagation();
-              setActiveGarageImage(
-                (activeGarageImage + 1) % garageGallery.length,
+              setActiveGallery((current) =>
+                current === null
+                  ? null
+                  : {
+                      ...current,
+                      index: (current.index + 1) % activeGalleryData.images.length,
+                    },
               );
             }}
             className="absolute right-3 z-10 rounded-full bg-white/10 px-4 py-3 text-3xl text-white backdrop-blur transition hover:bg-white/20 md:right-8"
