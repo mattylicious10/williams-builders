@@ -20,7 +20,7 @@ export default function Navbar() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          ? "md:bg-white md:shadow-md bg-transparent"
+          ? "md:bg-[#F5F8F7]/95 md:shadow-md bg-transparent"
           : "bg-transparent"
       }`}
     >
@@ -39,10 +39,11 @@ export default function Navbar() {
             }`}
         >
           <Image
-            src="/logo-f8f5ee.png"
-            alt="Williams Builders Ltd."
-            width={70}
-            height={70}
+            src="/wb-logo-horizontal.png"
+            alt="Williams Builders"
+            width={180}
+            height={65}
+            className="h-auto w-[150px] md:w-[180px]"
           />
         </a>
 
@@ -55,7 +56,7 @@ export default function Navbar() {
 
           <a
             href="#quote"
-            className="bg-[#1D3A22] text-white px-5 py-2 rounded-lg hover:bg-[#B78B3A] transition"
+            className="bg-[#00474E] text-white px-5 py-2 rounded-lg hover:bg-[#00A35A] transition"
           >
             Request a Quote
           </a>
@@ -67,7 +68,7 @@ export default function Navbar() {
             onClick={() => setOpen(!open)}
             className={`text-2xl transition-all duration-300 rounded-lg p-2 ${
               scrolled
-                ? "bg-white shadow-md"
+                ? "bg-[#F5F8F7] shadow-md"
                 : "bg-transparent"
             }`}
           >
@@ -78,7 +79,7 @@ export default function Navbar() {
 
       {/* MOBILE MENU */}
       {open && (
-        <div className="md:hidden bg-white shadow-md px-6 py-4 flex flex-col space-y-4">
+        <div className="md:hidden bg-[#F5F8F7] shadow-md px-6 py-4 flex flex-col space-y-4">
           <a href="#services" onClick={() => setOpen(false)}>Services</a>
           <a href="#projects" onClick={() => setOpen(false)}>Gallery</a>
           <a href="#about" onClick={() => setOpen(false)}>About</a>
@@ -87,7 +88,7 @@ export default function Navbar() {
           <a
             href="#quote"
             onClick={() => setOpen(false)}
-            className="block bg-[#1D3A22] text-white px-4 py-2 rounded-lg text-center"
+            className="block bg-[#00474E] text-white px-4 py-2 rounded-lg text-center"
           >
             Request a Quote
           </a>

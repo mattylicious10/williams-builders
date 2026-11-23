@@ -2,7 +2,7 @@ export default function AboutSection() {
   return (
     <section id="about" className="py-24 px-6 bg-white">
       <div className="max-w-5xl mx-auto text-center">
-        <h2 className="text-4xl font-bold text-[#1D3A22] mb-8">
+        <h2 className="text-4xl font-bold text-[#00474E] mb-8">
           About Williams Builders Ltd.
         </h2>
 

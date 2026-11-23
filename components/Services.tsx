@@ -21,7 +21,7 @@ export default function Services() {
   return (
     <section id="services" className="py-24 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-4xl font-bold text-center text-[#1D3A22] mb-12">
+        <h2 className="text-4xl font-bold text-center text-[#00474E] mb-12">
           What We Build
         </h2>
 

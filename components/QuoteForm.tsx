@@ -37,7 +37,7 @@ export default function QuoteForm() {
     return (
       <section
         id="quote"
-        className="py-24 px-6 bg-[#1D3A22] text-white"
+        className="py-24 px-6 bg-[#00474E] text-white"
       >
         <div className="max-w-3xl mx-auto text-center">
           <h2 className="text-4xl font-bold mb-4">
@@ -56,7 +56,7 @@ export default function QuoteForm() {
   return (
     <section
       id="quote"
-      className="py-24 px-6 bg-[#1D3A22] text-white"
+      className="py-24 px-6 bg-[#00474E] text-white"
     >
       <div className="max-w-3xl mx-auto">
         <h2 className="text-4xl font-bold text-center mb-4">
@@ -82,7 +82,7 @@ export default function QuoteForm() {
                   name: e.target.value,
                 })
               }
-              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#B78B3A]"
+              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#00A35A]"
               required
             />
 
@@ -96,7 +96,7 @@ export default function QuoteForm() {
                   email: e.target.value,
                 })
               }
-              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#B78B3A]"
+              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#00A35A]"
               required
             />
 
@@ -110,7 +110,7 @@ export default function QuoteForm() {
                   phone: e.target.value,
                 })
               }
-              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#B78B3A]"
+              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#00A35A]"
             />
 
             <select
@@ -121,7 +121,7 @@ export default function QuoteForm() {
                   projectType: e.target.value,
                 })
               }
-              className="w-full p-4 rounded-lg border border-gray-300 text-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#B78B3A]"
+              className="w-full p-4 rounded-lg border border-gray-300 text-black cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00A35A]"
               required
             >
               <option value="">
@@ -154,13 +154,13 @@ export default function QuoteForm() {
                   message: e.target.value,
                 })
               }
-              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#B78B3A]"
+              className="w-full p-4 rounded-lg border border-gray-300 text-black focus:outline-none focus:ring-2 focus:ring-[#00A35A]"
               required
             />
 
             <button
               type="submit"
-              className="w-full bg-[#1D3A22] text-white py-4 rounded-lg font-semibold hover:bg-[#B78B3A] transition cursor-pointer"
+              className="w-full bg-[#00474E] text-white py-4 rounded-lg font-semibold hover:bg-[#00A35A] transition cursor-pointer"
             >
               Request Quote
             </button>

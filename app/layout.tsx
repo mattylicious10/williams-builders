@@ -14,7 +14,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Williams Builders Ltd.",
+  title: "Williams Builders",
+  icons: { icon: "/icon-192.png", apple: "/apple-touch-icon.png" },
+  openGraph: { images: ["/wb-social-profile.png"] },
   description:
     "Custom homes, renovations, decks, garages, and outdoor living spaces serving Winnipeg, surrounding communities, and Whiteshell Provincial Park.",
 };

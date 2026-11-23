@@ -53,7 +53,16 @@ const garageGallery = [
   },
 ];
 
-type GalleryName = "whiteshell" | "garage";
+const selkirkGallery = [
+  { src: "/projects/selkirk-residential-addition/selkirk-coming-soon.webp", alt: "Williams Builders coming soon sign for the Selkirk residential addition" },
+  { src: "/projects/selkirk-residential-addition/IMG_3547.webp", alt: "Residential addition construction progress in Selkirk, Manitoba — IMG_3547" },
+  { src: "/projects/selkirk-residential-addition/IMG_3554.webp", alt: "Residential addition construction progress in Selkirk, Manitoba — IMG_3554" },
+  { src: "/projects/selkirk-residential-addition/IMG_3528.webp", alt: "Residential addition construction progress in Selkirk, Manitoba — IMG_3528" },
+  { src: "/projects/selkirk-residential-addition/IMG_3519.webp", alt: "Residential addition construction progress in Selkirk, Manitoba — IMG_3519" },
+  { src: "/projects/selkirk-residential-addition/IMG_3523.webp", alt: "Residential addition construction progress in Selkirk, Manitoba — IMG_3523" },
+];
+
+type GalleryName = "whiteshell" | "garage" | "selkirk";
 
 type ActiveGallery = {
   name: GalleryName;
@@ -61,6 +70,7 @@ type ActiveGallery = {
 } | null;
 
 const galleries = {
+  selkirk: { images: selkirkGallery, label: "Selkirk residential addition photo gallery" },
   whiteshell: {
     images: whiteshellGallery,
     label: "Whiteshell exterior siding photo gallery",
@@ -127,14 +137,14 @@ export default function FeaturedProjects() {
     : null;
 
   return (
-    <section id="projects" className="bg-[#F8F5EE] px-6 py-24">
+    <section id="projects" className="bg-[#F5F8F7] px-6 py-24">
       <div className="mx-auto max-w-7xl">
-        <h2 className="mb-12 text-center text-4xl font-bold text-[#1D3A22]">
+        <h2 className="mb-12 text-center text-4xl font-bold text-[#00474E]">
           Featured Projects
         </h2>
 
         <article className="overflow-hidden rounded-2xl bg-white shadow-sm">
-          <div className="bg-[#F8F5EE]">
+          <div className="bg-[#F5F8F7]">
             <button
               type="button"
               onClick={() => openGallery("whiteshell", 0)}
@@ -146,7 +156,7 @@ export default function FeaturedProjects() {
                 alt={whiteshellGallery[0].alt}
                 fill
                 className="object-cover transition-transform duration-500 hover:scale-[1.02]"
-                sizes="(max-width: 768px) 100vw, 1280px"
+                sizes="(max-width: 768px) calc(100vw - 3rem), 1280px"
                 priority
               />
             </button>
@@ -165,7 +175,7 @@ export default function FeaturedProjects() {
                     alt={image.alt}
                     fill
                     className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
-                    sizes="(max-width: 640px) 100vw, 33vw"
+                    sizes="(max-width: 640px) calc(100vw - 3rem), (max-width: 1328px) 33vw, 426px"
                   />
                 </button>
               ))}
@@ -176,7 +186,7 @@ export default function FeaturedProjects() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#5E765E]">
               Whiteshell Provincial Park
             </p>
-            <h3 className="text-2xl font-semibold text-[#1D3A22] md:text-3xl">
+            <h3 className="text-2xl font-semibold text-[#00474E] md:text-3xl">
               Exterior Siding
             </h3>
             <p className="mt-4 max-w-3xl leading-7 text-gray-600">
@@ -188,7 +198,7 @@ export default function FeaturedProjects() {
         </article>
 
         <article className="mt-10 overflow-hidden rounded-2xl bg-white shadow-sm">
-          <div className="bg-[#F8F5EE]">
+          <div className="bg-[#F5F8F7]">
             <button
               type="button"
               onClick={() => openGallery("garage", 0)}
@@ -222,7 +232,7 @@ export default function FeaturedProjects() {
                   />
                   {index === 2 && (
                     <span className="absolute inset-0 flex items-end justify-end bg-black/20 p-4 transition-colors group-hover:bg-black/30">
-                      <span className="rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-[#1D3A22] shadow-sm">
+                      <span className="rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-[#00474E] shadow-sm">
                         View all {garageGallery.length} photos
                       </span>
                     </span>
@@ -236,13 +246,34 @@ export default function FeaturedProjects() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#5E765E]">
               Winnipeg, Manitoba
             </p>
-            <h3 className="text-2xl font-semibold text-[#1D3A22] md:text-3xl">
+            <h3 className="text-2xl font-semibold text-[#00474E] md:text-3xl">
               Detached Garage
             </h3>
             <p className="mt-4 max-w-3xl leading-7 text-gray-600">
               New detached garage construction in Winnipeg, including wall and
               roof framing, sheathing, and structural framing.
             </p>
+          </div>
+        </article>
+
+        <article className="mt-10 overflow-hidden rounded-2xl bg-white shadow-sm">
+          <div className="bg-[#F5F8F7]">
+            <button type="button" onClick={() => openGallery("selkirk", 0)} className="relative block aspect-[4/3] w-full overflow-hidden bg-gray-200 text-left md:aspect-[16/8]" aria-label="Open Selkirk residential addition photo gallery">
+              <Image src={selkirkGallery[0].src} alt={selkirkGallery[0].alt} fill className="object-contain transition-transform duration-500 hover:scale-[1.02]" sizes="(max-width: 768px) 100vw, 1280px" />
+            </button>
+            <div className="mt-1 grid gap-1 sm:grid-cols-3">
+              {selkirkGallery.slice(1, 4).map((image, index) => (
+                <button type="button" key={image.src} onClick={() => openGallery("selkirk", index + 1)} className="group relative aspect-[4/3] overflow-hidden bg-gray-200 text-left" aria-label={`Open Selkirk addition gallery photo ${index + 2}`}>
+                  <Image src={image.src} alt={image.alt} fill className="object-cover transition-transform duration-500 group-hover:scale-[1.02]" sizes="(max-width: 640px) 100vw, 33vw" />
+                  {index === 2 && <span className="absolute inset-0 flex items-end justify-end bg-black/20 p-4 transition-colors group-hover:bg-black/30"><span className="rounded-full bg-white/95 px-4 py-2 text-sm font-semibold text-[#00474E] shadow-sm">View all {selkirkGallery.length} photos</span></span>}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="p-7 md:p-9">
+            <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-[#5E765E]">Selkirk, Manitoba</p>
+            <h3 className="text-2xl font-semibold text-[#00474E] md:text-3xl">Residential Addition</h3>
+            <p className="mt-4 max-w-3xl leading-7 text-gray-600">Residential addition underway in Selkirk, including floor framing, exterior walls, roof framing, sheathing, and the connection to the existing home. View the latest construction photos.</p>
           </div>
         </article>
 
@@ -302,7 +333,7 @@ export default function FeaturedProjects() {
               alt={activeGalleryData.images[activeGallery.index].alt}
               fill
               className="object-contain"
-              sizes="100vw"
+              sizes="(max-width: 1152px) calc(100vw - 2rem), 1152px"
               priority
             />
             <div className="absolute bottom-3 left-1/2 -translate-x-1/2 rounded-full bg-black/60 px-3 py-1 text-sm text-white">
